@@ -1,29 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "allowJs": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
+    "target": "ES2022",                  // ECMAScript alvo moderno
+    "module": "ESNext",                  // Compatível com ES Modules
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",                  // JSX moderno do React 18
+    "strict": true,                      // Ativa checagem completa de tipos
+    "esModuleInterop": true,             // Permite importar CommonJS
+    "moduleResolution": "node",          // Resoluciona módulos como Node
+    "isolatedModules": true,             // Compatível com TS + Vite/Babel
+    "allowJs": true,                     // Permite arquivos .js
+    "allowImportingTsExtensions": true,  // Permite importar arquivos .ts explicitamente
+    "skipLibCheck": true,                // Ignora checagem de tipos de bibliotecas
+    "types": ["node"],                   // Tipos Node.js
+    "paths": {                           // Alias @ para a raiz do projeto
+      "@/*": ["./*"]
     },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
-  }
+    "experimentalDecorators": true,      // Suporte a decorators
+    "useDefineForClassFields": false,    // Compatibilidade com TS clássico
+    "noEmit": false                       // Permite gerar arquivos .js (necessário para scripts TS)
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"], // Inclui todos os arquivos TS/TSX
+  "exclude": ["node_modules", "dist"]     // Exclui node_modules e dist
 }

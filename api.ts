@@ -1,2 +1,2 @@
 // api.ts
-export const API_URL = "https://digital-nexus-solutions-controlo.onrender.com";
+export const API_URL = "https://dns-controlo-api.onrender.com";
