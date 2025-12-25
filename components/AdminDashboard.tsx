@@ -56,17 +56,18 @@ const AdminDashboard: React.FC<Props> = ({
 
   const t = TRANSLATIONS[lang];
 
-  // 🔴 BUSCA REAL DO BANCO (RENDER)
+  // 🔴 Buscar usuários do backend ao carregar
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/users`)
-      .then((res) => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/users`);
         onRestoreData?.({ users: res.data });
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Erro ao buscar usuários do banco:", err);
-      });
-  }, []);
+      }
+    };
+    fetchUsers();
+  }, [onRestoreData]);
 
   const manageableUsers = users.filter((u) => u.role !== "master");
 
@@ -104,13 +105,11 @@ const AdminDashboard: React.FC<Props> = ({
     setIsModalOpen(true);
   };
 
-  // 🔴 USA O ENDPOINT CORRETO DO BACKEND
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       if (isEditing) {
-        // (opcional – só local por enquanto)
+        // Atualiza localmente e opcionalmente na API futura
         onEditUser(formData);
       } else {
         const response = await axios.post(`${API_URL}/api/register`, {
@@ -118,13 +117,11 @@ const AdminDashboard: React.FC<Props> = ({
           email: formData.email,
           plan: "free",
         });
-
         onAddUser(response.data);
       }
     } catch (err) {
       console.error("Erro ao salvar usuário:", err);
     }
-
     setIsModalOpen(false);
   };
 
@@ -141,9 +138,7 @@ const AdminDashboard: React.FC<Props> = ({
               <p className="text-slate-400 text-[10px] font-black uppercase">
                 {t.activeSubscriptions}
               </p>
-              <h3 className="text-2xl font-bold">
-                {manageableUsers.length}
-              </h3>
+              <h3 className="text-2xl font-bold">{manageableUsers.length}</h3>
             </div>
           </div>
         </div>
